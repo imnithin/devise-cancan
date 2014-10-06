@@ -1,0 +1,7 @@
+<% if can? :manage, @user %>
+<% @roles.each do |role| %>
+<%= role.name %> <%= link_to "show", role_path(role.id) %> <%= link_to "delete", role_path(role.id), method: 'delete' unless role.name == 'admin'%><br/>
+<% end %><br/>
+<%= link_to "New Role", new_role_path %><br/>
+<%= link_to "Back", root_path %>
+<% end %>

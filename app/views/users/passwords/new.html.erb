@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag "/assets/before_login" %>
+
+  <div class="main_layout_inner">
+    <div class="signin_wrap">
+      <p><%= image_tag "/assets/logo.png", alt: "logo"  %></p>
+      <h2>Forgot your password?</h2>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="signin_box">
+          <div class="signin_txtbox">
+            <%= f.email_field :email, autofocus: true,  class: "txtbox_field field_email",  placeholder: "Email" %>
+            </div>
+            <div class="signin_txtbox signin_btn">
+              <%= f.submit "Send me reset password instructions", class: "txtbox_field" %>
+              </div>
+              <div class="signin_txtbox signin_btn back_to_login">
+                <%=  link_to "Back to login", new_user_session_path, class: "txtbox_field" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      <%#= render "devise/shared/links" %>
+
+      <script type="text/javascript">
+        $("#new_user").validate({
+          rules:{
+            'user[email]':
+              {
+              required: true,
+              email: true
+            }
+          },
+          messages: {
+            'user[email]':
+              {
+              required: "Please enter your email"
+            }
+          }
+        });
+      </script>

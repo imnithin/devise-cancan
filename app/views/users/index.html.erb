@@ -1,0 +1,13 @@
+<%= link_to "Log out", destroy_user_session_path, :method => :delete  %>
+<% if can? :manage, @user %>
+  <%= link_to 'External DB Connection', :action=>"new_db_config" %>
+  <%= link_to 'Roles', roles_path %>
+<%= link_to 'Create new User', new_user_registration_path  %> 
+<% end %>
+
+
+<% if can? :read, @user %>
+  user
+<%end%>
+
+<%= link_to 'Edit my account', edit_user_registration_path  %> 

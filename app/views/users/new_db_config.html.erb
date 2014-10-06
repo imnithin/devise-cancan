@@ -1,0 +1,34 @@
+Define Database Page by Admin
+<%= form_tag :action=>'save_db_config' %>
+<table>
+	<tr>
+		<%a=@line_wise.at(1).split(":")%>
+		<td><%=a[0].strip.capitalize%></td>
+		<td><%=select_tag "adapter", options_for_select([ "sqlserver", "mysql2", "oracle_enhanced","postgresql" ], :selected=>a[1].strip)%></td>
+	</tr>
+	<tr>
+	<%h=@line_wise.at(2).split(":")%>
+		<td><%=h[0].strip.capitalize%></td>
+		<%if h[1].strip=="localhost"%>
+		<td><%=radio_button_tag "host",h[1].strip,true%><%=h[1].strip%>
+			<%=radio_button_tag "host","ip"%><%=text_field_tag "host_ipentered",""%></td>
+		<%else%>
+		<td><%=radio_button_tag "host","localhost"%>localhost
+			<%=radio_button_tag "host",h[1].strip,true%><%=text_field_tag "host_ip",h[1].strip%></td>
+		<%end%>
+	</tr>
+<% @line_wise.each do |line| %>
+	<% l=line.split(":").map(&:strip) %>
+	<% if (l[1] && l[0]!="adapter" && l[0]!="host") %>
+	<tr>
+		<td><%= l[0].capitalize %></td>
+		<td><%= text_field_tag "#{@db}#{[l[0]]}", l[1] %><br/></td>
+	</tr>
+	<%elsif l[0]!="adapter" && l[0]!="host"%>
+	<tr>
+		<td><h2><%= @db=l[0] %><h2></td>
+	</tr>
+	<% end %>
+  <% end %>
+</table>
+<%= submit_tag 'Submit'%>

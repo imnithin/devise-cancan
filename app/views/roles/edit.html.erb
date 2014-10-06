@@ -1,0 +1,5 @@
+<% if can? :manage, @user %>
+<h1>Editing role</h1>
+<%= render 'form' %>
+<%= link_to 'Back', roles_path %>
+<% end %>
